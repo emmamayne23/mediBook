@@ -9,8 +9,8 @@ export default async function Navbar() {
   const user = session?.user;
 //   console.log(user);
   return (
-    <nav className="flex justify-between items-center shadow-md p-3 gap-3 border bg-green-700">
-      <Link href={"/"}>
+    <nav className="flex justify-between items-center shadow-md p-3 gap-3 border">
+      <Link href={"/"} className="border bg-blue-600 px-1.5 md:px-3">
         <Image src={logo} alt="logo" width={200} height={100}></Image>
       </Link>
       <div className="flex items-center gap-3">
