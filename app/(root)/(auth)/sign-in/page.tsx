@@ -3,6 +3,33 @@ import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
 
 const Signin = () => {
+  const handleSignin = async (formData: FormData) => {
+    "use server"
+
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
+    try {
+      // 1st option
+      // await signIn("credentials", { email, password, redirectTo: "/" })
+
+      // 2nd option
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/sign-in`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ email, password })
+      })
+      const data = await response.json()
+      if(!response.ok) {
+        console.error(data.error || "Sign in failed");
+        return;
+      }
+      await signIn("credentials", { email, password, redirectTo: "/" })
+    } catch (error) {
+      console.error("Sign In error: ", error)
+    }
+  }
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -14,7 +41,7 @@ const Signin = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#">
+          <form className="space-y-6" action={handleSignin}>
             {/* <div>
               <label
                 htmlFor="name"

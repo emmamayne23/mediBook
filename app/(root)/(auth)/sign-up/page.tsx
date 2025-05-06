@@ -1,7 +1,34 @@
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { signIn } from "@/auth";
+import { redirect } from "next/navigation";
 const Signup = () => {
+  const handleSignUp = async (formData: FormData) => {
+    "use server"
+
+    const name = formData.get("name") as string
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
+
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/sign-up`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, password })
+      })
+      const data = await response.json()
+      if(!response.ok) {
+        console.error(data.error || "Sign up failed");
+        return;
+      }
+      await signIn("credentials", { email, password })
+      redirect("/")
+    } catch (error) {
+      console.error("Could not Sign up", error)
+    }
+  }
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -13,7 +40,7 @@ const Signup = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#">
+          <form className="space-y-6" action={handleSignUp}>
             <div>
               <label
                 htmlFor="name"
@@ -76,19 +103,19 @@ const Signup = () => {
                 type="submit"
                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
               >
-                Sign In
+                Sign Up
               </button>
             </div>
           </form>
 
           <div className="mt-6 text-center text-sm">
             <p className="text-gray-600">
-              Are you new?{" "}
+              Already a member?{" "}
               <Link
-                href="/sign-up"
+                href="/sign-in"
                 className="font-medium text-blue-600 hover:text-blue-500"
               >
-                Create account here!
+                Sign in here!
               </Link>
             </p>
           </div>

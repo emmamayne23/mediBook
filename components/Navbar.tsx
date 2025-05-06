@@ -3,11 +3,11 @@ import { auth, signOut } from "@/auth";
 import Link from "next/link";
 import Image from "next/image";
 
-import logo from "@/public/logo.png"
+import logo from "@/public/logo.png";
 export default async function Navbar() {
   const session = await auth();
   const user = session?.user;
-//   console.log(user);
+  // console.log(user);
   return (
     <nav className="flex justify-between items-center shadow-md p-3 gap-3 border">
       <Link href={"/"} className="border bg-blue-600 px-1.5 md:px-3">
@@ -26,14 +26,21 @@ export default async function Navbar() {
                 Signout
               </button>
             </form>
-            <Link href={""}>
-              <Image
-                src={user.image || ""}
-                width={30}
-                height={30}
-                alt={user.name || ""}
-                className="rounded-full"
-              />
+            <Link
+              href={""}
+              className="rounded-full border flex justify-center items-center shadow-md"
+            >
+              {user.image ? (
+                <Image
+                  src={user.image || ""}
+                  width={30}
+                  height={30}
+                  alt={user.name || ""}
+                  className="rounded-full border"
+                />
+              ) : (
+                <div className="font-bold text-2xl px-2 py-0.5 bg-blue-600 text-white rounded-full">{(user.name?.[0] ?? "").toUpperCase()}</div>
+              )}
             </Link>
           </div>
         ) : (
