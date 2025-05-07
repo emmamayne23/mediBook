@@ -1,7 +1,6 @@
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
 import { signIn } from "@/auth";
-import { redirect } from "next/navigation";
 const Signup = () => {
   const handleSignUp = async (formData: FormData) => {
     "use server"
@@ -10,7 +9,6 @@ const Signup = () => {
     const email = formData.get("email") as string
     const password = formData.get("password") as string
 
-    try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/sign-up`, {
         method: "POST",
         headers: {
@@ -23,11 +21,8 @@ const Signup = () => {
         console.error(data.error || "Sign up failed");
         return;
       }
-      await signIn("credentials", { email, password })
-      redirect("/")
-    } catch (error) {
-      console.error("Could not Sign up", error)
-    }
+      await signIn("credentials", { email, password, redirectTo: "/" })
+      console.log("Authentication failed without redirect")
   }
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">

@@ -8,7 +8,6 @@ const Signin = () => {
 
     const email = formData.get("email") as string
     const password = formData.get("password") as string
-    try {
       // 1st option
       // await signIn("credentials", { email, password, redirectTo: "/" })
 
@@ -26,9 +25,7 @@ const Signin = () => {
         return;
       }
       await signIn("credentials", { email, password, redirectTo: "/" })
-    } catch (error) {
-      console.error("Sign In error: ", error)
-    }
+      console.log("Authentication failed without redirect")
   }
   return (
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8">

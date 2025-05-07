@@ -1,8 +1,20 @@
+import { db } from "@/db/drizzle";
+import { specialties } from "@/db/schema";
 
-export default function Home() {
+export default async function Home() {
+  const allSpecialties = await db.select().from(specialties)
   return (
     <main>
-      Home Page
+      <div>Home Page</div>
+
+        { allSpecialties.map((specialty) => (
+          <div key={specialty.id}>
+            <span>{specialty.specialty}</span>
+            <span>{specialty.description}</span>
+            <span>{specialty.icon_url}</span>
+          </div>
+        )) }
+
     </main>
   );
 }
