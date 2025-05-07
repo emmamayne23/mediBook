@@ -9,8 +9,8 @@ export default async function Navbar() {
   const user = session?.user;
   // console.log(user);
   return (
-    <nav className="flex justify-between items-center shadow-md p-3 gap-3 border">
-      <Link href={"/"} className="border bg-blue-600 px-1.5 md:px-3">
+    <nav className="flex justify-between items-center shadow-md p-3 gap-3 fixed top-0 right-0 left-0">
+      <Link href={"/"} className=" bg-blue-600 px-1.5 md:px-3 rounded-sm">
         <Image src={logo} alt="logo" width={200} height={100}></Image>
       </Link>
       <div className="flex items-center gap-3">
@@ -22,13 +22,13 @@ export default async function Navbar() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button type="submit" className="cursor-pointer">
+              <button type="submit" className="cursor-pointer border px-3 py-1.5 rounded-lg">
                 Signout
               </button>
             </form>
             <Link
               href={""}
-              className="rounded-full border flex justify-center items-center shadow-md"
+              className="rounded-full flex justify-center items-center shadow-md"
             >
               {user.image ? (
                 <Image
