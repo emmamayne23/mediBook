@@ -9,7 +9,7 @@ export default async function Navbar() {
   const user = session?.user;
   // console.log(user);
   return (
-    <nav className="flex justify-between items-center shadow-md p-3 gap-3 fixed top-0 right-0 left-0">
+    <nav className="z-50 bg-background flex justify-between items-center shadow-md p-3 gap-3 fixed top-0 right-0 left-0">
       <Link href={"/"} className=" bg-blue-600 px-1.5 md:px-3 rounded-sm">
         <Image src={logo} alt="logo" width={200} height={100}></Image>
       </Link>
@@ -22,7 +22,7 @@ export default async function Navbar() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button type="submit" className="cursor-pointer border px-3 py-1.5 rounded-lg">
+              <button type="submit" className="cursor-pointer border-2 px-3 py-1.5 rounded-lg">
                 Signout
               </button>
             </form>
@@ -39,7 +39,7 @@ export default async function Navbar() {
                   className="rounded-full border"
                 />
               ) : (
-                <div className="font-bold text-2xl px-2 py-0.5 bg-blue-600 text-white rounded-full">{(user.name?.[0] ?? "").toUpperCase()}</div>
+                <div className="font-semibold text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">{(user.name?.[0] ?? "").toUpperCase()}</div>
               )}
             </Link>
           </div>
