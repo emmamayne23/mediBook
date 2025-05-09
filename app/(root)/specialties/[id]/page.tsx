@@ -2,6 +2,7 @@ import { db } from "@/db/drizzle";
 import { specialties, users, doctorProfiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 interface ParamsProps {
@@ -50,6 +51,7 @@ export default async function SpecialtyDoctorsPage({ params }: ParamsProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5">
           {doctors.map((doc) => (
             <div key={doc.id} className="p-6 border rounded shadow">
+              <span className="border border-green-600 px-3 py-1.5 text-xs rounded-full">Open Office</span>
               <Image
                 width={100}
                 height={100}
@@ -64,6 +66,10 @@ export default async function SpecialtyDoctorsPage({ params }: ParamsProps) {
                 {doc.qualifications}
               </p>
               <p className="text-center mt-2 text-sm">{doc.bio}</p>
+              <div className="flex gap-2 mt-2 text-sm text-center">
+                <Link href={`/doctor/${doc.id}`} className="bg-green-500 px-3 py-1.5 w-full rounded-lg">View Details</Link>
+                <Link href={`/appointments/book/${doc.id}`} className="bg-blue-500 px-3 py-1.5 w-full rounded-lg">Book Appointment</Link>
+              </div>
             </div>
           ))}
         </div>
