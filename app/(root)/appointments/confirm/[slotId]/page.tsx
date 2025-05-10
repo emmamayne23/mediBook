@@ -1,4 +1,3 @@
-// app/appointments/confirm/[slotId]/page.tsx
 
 import { db } from "@/db/drizzle";
 import {
@@ -8,7 +7,7 @@ import {
   users,
 } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { auth } from "@/auth"; // Auth.js
+import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 
@@ -20,7 +19,7 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
   const session = await auth();
 
   if (!session?.user) {
-    redirect("/auth/signin"); // Protect page
+    redirect("/sign-in"); // Protect page
   }
 
   const userId = session.user.id;

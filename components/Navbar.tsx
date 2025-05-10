@@ -22,7 +22,10 @@ export default async function Navbar() {
                 await signOut({ redirectTo: "/" });
               }}
             >
-              <button type="submit" className="cursor-pointer border-2 px-3 py-1.5 rounded-lg">
+              <button
+                type="submit"
+                className="cursor-pointer border-2 px-3 py-1.5 rounded-lg"
+              >
                 Signout
               </button>
             </form>
@@ -39,7 +42,9 @@ export default async function Navbar() {
                   className="rounded-full border"
                 />
               ) : (
-                <div className="font-semibold text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">{(user.name?.[0] ?? "").toUpperCase()}</div>
+                <div className="font-semibold text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">
+                  {(user.name?.[0] ?? "").toUpperCase()}
+                </div>
               )}
             </Link>
           </div>

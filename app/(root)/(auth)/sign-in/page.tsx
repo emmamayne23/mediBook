@@ -1,32 +1,9 @@
-import { signIn } from "@/auth";
+
 import Link from "next/link";
 import { FcGoogle } from "react-icons/fc";
+import { handleSignin, handleGoogleSignIn } from "@/lib/actions";
 
 const Signin = () => {
-  const handleSignin = async (formData: FormData) => {
-    "use server"
-
-    const email = formData.get("email") as string
-    const password = formData.get("password") as string
-      // 1st option
-      // await signIn("credentials", { email, password, redirectTo: "/" })
-
-      // 2nd option
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/sign-in`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ email, password })
-      })
-      const data = await response.json()
-      if(!response.ok) {
-        console.error(data.error || "Sign in failed");
-        return;
-      }
-      await signIn("credentials", { email, password, redirectTo: "/" })
-      console.log("Authentication failed without redirect")
-  }
   return (
     <div className="min-h-screen my-22 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -119,11 +96,7 @@ const Signin = () => {
           </div>
           <div className="text-center">
             <form
-              action={async () => {
-                "use server";
-                await signIn("google", { redirectTo: "/" });
-                
-              }}
+              action={handleGoogleSignIn}
             >
               <button type="submit" className="cursor-pointer flex border rounded-xl px-10 py-2 mt-3 gap-5 mx-auto hover:shadow-md duration-300">
                 <FcGoogle className=" text-2xl" />

@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FaUserMd, FaRegCalendarAlt, FaAward, FaInfoCircle } from "react-icons/fa";
 
 interface ParamsProps {
   params: { id: string };
@@ -38,46 +39,99 @@ export default async function SpecialtyDoctorsPage({ params }: ParamsProps) {
     .from(doctorProfiles)
     .where(eq(doctorProfiles.specialtyId, id))
     .innerJoin(users, eq(doctorProfiles.userId, users.id));
-  return (
-    <section className="py-25">
-      <h1 className="text-4xl font-bold text-center text-blue-600 mb-4">
-        {specialty.specialty}
-      </h1>
-      <p className="text-center text-gray-500 mb-8 max-w-2xl mx-auto">
-        {specialty.description}
-      </p>
 
-      {doctors.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-5">
-          {doctors.map((doc) => (
-            <div key={doc.id} className="p-6 border rounded shadow">
-              <span className="border border-green-600 px-3 py-1.5 text-xs rounded-full">Open Office</span>
-              <Image
-                width={100}
-                height={100}
-                src={doc.imageUrl ?? "/default-doctor.jpg"}
-                alt="Doctor"
-                className="w-32 h-32 object-cover rounded-full mb-4 mx-auto"
-              />
-              <h2 className="text-xl font-semibold text-center">
-                {doc.user.name}
-              </h2>
-              <p className="text-sm text-gray-500 text-center">
-                {doc.qualifications}
-              </p>
-              <p className="text-center mt-2 text-sm">{doc.bio}</p>
-              <div className="flex gap-2 mt-2 text-sm text-center">
-                <Link href={`/doctor/${doc.id}`} className="bg-green-500 px-3 py-1.5 w-full rounded-lg">View Details</Link>
-                <Link href={`/appointments/book/${doc.id}`} className="bg-blue-500 px-3 py-1.5 w-full rounded-lg">Book Appointment</Link>
-              </div>
-            </div>
-          ))}
+  return (
+    <section className="py-16 bg-gray-50 dark:bg-gray-900 min-h-screen">
+      <div className="container mx-auto px-4">
+        {/* Specialty Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl md:text-5xl font-bold text-blue-600 dark:text-blue-400 mb-4">
+            {specialty.specialty} Specialists
+          </h1>
+          <div className="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            {specialty.description}
+          </p>
         </div>
-      ) : (
-        <p className="text-center text-gray-400">
-          No doctors found under this specialty yet.
-        </p>
-      )}
+
+        {/* Doctors Grid */}
+        {doctors.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {doctors.map((doc) => (
+              <div 
+                key={doc.id} 
+                className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 border border-gray-200 dark:border-gray-700"
+              >
+                {/* Doctor Image */}
+                <div className="relative h-48 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/30 dark:to-blue-800/30 flex justify-center items-center">
+                  <div className="absolute top-4 left-4">
+                    <span className="bg-green-100 dark:bg-green-900/50 text-green-800 dark:text-green-200 text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+                      <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                      Available Today
+                    </span>
+                  </div>
+                  <Image
+                    width={120}
+                    height={120}
+                    src={doc.imageUrl ?? "/default-doctor.jpg"}
+                    alt={`Dr. ${doc.user.name}`}
+                    className="w-32 h-32 object-cover rounded-full border-4 border-white dark:border-gray-700 shadow-md"
+                  />
+                </div>
+
+                {/* Doctor Info */}
+                <div className="p-6">
+                  <h2 className="text-2xl font-bold text-center text-gray-800 dark:text-white mb-1">
+                    {doc.user.name}
+                  </h2>
+                  <p className="text-blue-600 dark:text-blue-400 text-center font-medium mb-4">
+                    {doc.qualifications}
+                  </p>
+
+                  {/* Experience */}
+                  <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
+                    <FaAward className="text-yellow-500" />
+                    <span>{doc.yearsExperience}+ years experience</span>
+                  </div>
+
+                  {/* Bio Excerpt */}
+                  <p className="text-gray-600 dark:text-gray-300 text-sm line-clamp-3 mb-6">
+                    {doc.bio}
+                  </p>
+
+                  {/* Action Buttons */}
+                  <div className="flex flex-col gap-3">
+                    <Link 
+                      href={`/doctor/${doc.id}`}
+                      className="flex items-center justify-center gap-2 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg transition-colors duration-300"
+                    >
+                      <FaInfoCircle />
+                      View Profile
+                    </Link>
+                    <Link
+                      href={`/appointments/book/${doc.id}`}
+                      className="flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors duration-300"
+                    >
+                      <FaRegCalendarAlt />
+                      Book Appointment
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="bg-white dark:bg-gray-800 rounded-xl p-8 text-center shadow-md max-w-2xl mx-auto">
+            <FaUserMd className="text-5xl text-gray-400 mx-auto mb-4" />
+            <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              No specialists available yet
+            </h3>
+            <p className="text-gray-500 dark:text-gray-400">
+              We don&apos;t have any {specialty.specialty} specialists at the moment. Please check back later.
+            </p>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
