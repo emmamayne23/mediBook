@@ -1,10 +1,11 @@
-import Navbar from "@/components/Navbar";
+// import Navbar from "@/components/Navbar";
+import NavClient from "@/components/NavClient";
 export default function Layout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <main>
-        <Navbar />
+        <NavClient />
         <div className="mt-20">
           {children}
         </div>

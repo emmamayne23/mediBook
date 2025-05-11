@@ -1,6 +1,7 @@
 "use server"
 
 import { signIn } from "@/auth";
+import { revalidatePath } from "next/cache";
 
 export async function handleSignUp(formData: FormData) {
   const name = formData.get("name") as string;
@@ -24,6 +25,8 @@ export async function handleSignUp(formData: FormData) {
   
   await signIn("credentials", { email, password, redirectTo: "/" });
   console.log("Authentication failed without redirect");
+
+  revalidatePath("/");
 }
 
  export async function handleSignin(formData: FormData) {
@@ -48,6 +51,8 @@ export async function handleSignUp(formData: FormData) {
       }
       await signIn("credentials", { email, password, redirectTo: "/" })
       console.log("Authentication failed without redirect")
+
+      revalidatePath("/");
   }
 
 
