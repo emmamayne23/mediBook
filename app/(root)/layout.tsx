@@ -6,7 +6,7 @@ export default function Layout({
   return (
     <main>
         <NavClient />
-        <div className="mt-20">
+        <div className="mt-19">
           {children}
         </div>
     </main>
