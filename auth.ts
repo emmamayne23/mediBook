@@ -57,6 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: user.name || "Anonymous",
           email: user.email,
           profileImage: user.image || null,
+          role: "patient",
         })
       }
       return true
@@ -72,6 +73,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if(dbUser.length > 0) {
           token.sub = dbUser[0].id
+          token.role = dbUser[0].role
         }
       }
       return token
@@ -80,6 +82,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async session({ session, token }) {
       if(session.user && token.sub) {
         session.user.id = token.sub
+        session.user.role = token.role
       }
       return session
     }

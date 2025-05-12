@@ -12,7 +12,7 @@ import { useState } from "react";
 export default function NavClient() {
   const { data: session } = useSession();
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
 
   const [isOpen, setIsOpen] = useState(false);
 
