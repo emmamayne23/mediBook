@@ -44,6 +44,7 @@ export default function NavClient() {
                 hover:text-blue-600 dark:hover:text-blue-400
                 transition-colors duration-300
                 group
+                text-center
                 font-medium
                 rounded-lg
                 flex items-center justify-center
