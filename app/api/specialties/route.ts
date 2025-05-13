@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
     try {
         const allSpecialties = await db.select().from(specialties)
-        return NextResponse.json({ specialties: allSpecialties })
+        return NextResponse.json(allSpecialties)
     } catch (error) {
         console.error("Could not get specialties", error)
         return NextResponse.json({ error: "Could not fetch specialties" }, { status: 500 })

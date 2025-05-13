@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import Link from "next/link";
 
 import { db } from "@/db/drizzle";
 import {
@@ -32,34 +33,39 @@ export default async function AdminDashboardPage() {
         <nav>
           <ul>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link href="/admin" className="block py-2 hover:bg-gray-700 px-4 rounded">
                 Overview
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
-                Users
-              </a>
+              <Link href="/admin/manage-users" className="block py-2 hover:bg-gray-700 px-4 rounded">
+                Manage Users
+              </Link>
             </li>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
                 Appointments
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link href="/admin/doctors" className="block py-2 hover:bg-gray-700 px-4 rounded">
                 Doctors
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link href="/admin/time-slots/create" className="block py-2 hover:bg-gray-700 px-4 rounded">
+                Slots
+              </Link>
+            </li>
+            <li>
+              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
                 Reviews
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
                 Settings
-              </a>
+              </Link>
             </li>
           </ul>
         </nav>

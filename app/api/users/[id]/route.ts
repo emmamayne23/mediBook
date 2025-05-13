@@ -9,7 +9,7 @@ export async function GET(_: Request, { params }: { params: {  id:string } }) {
         if(!user) {
             return NextResponse.json({ error: "User not found" }, { status: 404 })
         }
-        return NextResponse.json({ user: user[0] })
+        return NextResponse.json(user[0])
     } catch (error) {
         console.error("Could not get user", error)
         return NextResponse.json({ error: "Could not fetch user" }, { status: 500 })
@@ -20,7 +20,7 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
     try {
         const body = await req.json()
         const updatedUser = await db.update(users).set(body).where(eq(users.id, params.id))
-        return NextResponse.json({ user: updatedUser })
+        return NextResponse.json(updatedUser)
     } catch (error) {
         console.error("Could not update user", error)
         return NextResponse.json({ error: "Could not update user" }, { status: 500 })

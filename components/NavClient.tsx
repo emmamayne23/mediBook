@@ -86,14 +86,14 @@ export default function NavClient() {
         {user ? (
           <div className="flex items-center gap-3">
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ redirectTo: "/" })}
               className="cursor-pointer border-2 p-1 px-2.5 rounded-lg"
             >
               <FaSignOutAlt className="lg:hidden"/>
               <span className="hidden lg:flex">Sign Out</span>
             </button>
             <Link
-              href={""}
+              href={`/user-profile/${user.id}`}
               className="rounded-full flex justify-center items-center shadow-md"
             >
               {user.image ? (

@@ -13,7 +13,7 @@ export async function GET() {
     // }
     try {
         const allUsers = await db.select().from(users)
-        return NextResponse.json({ users: allUsers })
+        return NextResponse.json(allUsers)
     } catch (error) {
         console.error("Could not get users", error)
         return NextResponse.json({ error: "Could not fetch users" }, { status: 500 })

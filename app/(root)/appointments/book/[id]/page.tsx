@@ -40,7 +40,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
           slots.map((slot) => (
             <li key={slot.id} className="border p-4 rounded shadow-sm">
               <p>
-                <strong>Date:</strong> {new Date(slot.date).toLocaleDateString()}
+                <strong>Date:</strong> {new Date(slot.date).toDateString()}
               </p>
               <p>
                 <strong>Time:</strong> {slot.startTime} - {slot.endTime}

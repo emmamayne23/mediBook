@@ -11,11 +11,11 @@ export async function POST(request: Request) {
     try {
         const body = await request.json()
         const newSlot = await db.insert(timeAvailabilitySlots).values(body).returning()
-        return NextResponse.json(newSlot);
+        return NextResponse.json(newSlot[0], { status: 201 });
     } catch (error) {
-        console.error('Error fetching time slots:', error);
+        console.error('Error creating time slot:', error);
         return NextResponse.json(
-            { error: 'Failed to fetch time slots' },
+            { error: 'Failed to create time slot' },
             { status: 500 }
         );
     }
