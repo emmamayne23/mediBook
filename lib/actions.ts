@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/db/drizzle";
-import { timeAvailabilitySlots, users } from "@/db/schema";
+import { timeAvailabilitySlots, users, doctorProfiles } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 
@@ -86,4 +86,13 @@ export async function updateUserRole(formData: FormData) {
   await db.update(users).set({ role: newRole as "patient" | "doctor" | "admin" | "receptionist" }).where(eq(users.id, userId))
 
   revalidatePath("/admin/manage-users")
+}
+
+export async function updateDoctorProfile(formData: FormData) {
+  const doctorId = formData.get("doctorId") as string
+  const bio = formData.get("bio") as string
+  const qualifications = formData.get("qualifications") as string
+  const yearsExperience = Number(formData.get("yearsExperience"))
+
+  await db.update(doctorProfiles).set({ bio, qualifications, yearsExperience }).where(eq(doctorProfiles.userId, doctorId))
 }

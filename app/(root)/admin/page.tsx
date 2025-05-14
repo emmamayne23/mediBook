@@ -15,14 +15,16 @@ import {
 export default async function AdminDashboardPage() {
   const session = await auth();
   if (!session || session.user?.role !== "admin") {
-    redirect("/");
+    redirect("/not-found");
   }
 
   const allusers = await db.select().from(users);
   const allspecialties = await db.select().from(specialties);
   const allappointments = await db.select().from(appointments);
   const alldoctorProfiles = await db.select().from(doctorProfiles);
-  const alltimeAvailabilitySlots = await db.select().from(timeAvailabilitySlots);
+  const alltimeAvailabilitySlots = await db
+    .select()
+    .from(timeAvailabilitySlots);
   const allreviews = await db.select().from(reviews);
 
   return (
@@ -33,37 +35,58 @@ export default async function AdminDashboardPage() {
         <nav>
           <ul>
             <li>
-              <Link href="/admin" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="/admin"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Overview
               </Link>
             </li>
             <li>
-              <Link href="/admin/manage-users" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="/admin/manage-users"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Manage Users
               </Link>
             </li>
             <li>
-              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="#"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Appointments
               </Link>
             </li>
             <li>
-              <Link href="/admin/doctors" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="/admin/doctors"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Doctors
               </Link>
             </li>
             <li>
-              <Link href="/admin/time-slots/create" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="/admin/time-slots/create"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Slots
               </Link>
             </li>
             <li>
-              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="#"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Reviews
               </Link>
             </li>
             <li>
-              <Link href="#" className="block py-2 hover:bg-gray-700 px-4 rounded">
+              <Link
+                href="#"
+                className="block py-2 hover:bg-gray-700 px-4 rounded"
+              >
                 Settings
               </Link>
             </li>
@@ -75,7 +98,9 @@ export default async function AdminDashboardPage() {
       <div className="flex-1 p-8 space-y-6">
         {/* Dashboard Header */}
         <div className="flex justify-between items-center">
-          <h1 className="text-3xl font-semibold text-blue-600">Welcome, {session.user?.name} 👋</h1>
+          <h1 className="text-3xl font-semibold text-blue-600">
+            Welcome, {session.user?.name} 👋
+          </h1>
           <button className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
             Logout
           </button>
@@ -85,24 +110,36 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800">Total Users</h3>
-              <p className="text-2xl font-bold text-gray-900">{allusers.length}</p>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Total Users
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">
+                {allusers.length}
+              </p>
             </div>
             <div className="text-blue-500 text-4xl">👥</div>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800">Specialties</h3>
-              <p className="text-2xl font-bold text-gray-900">{allspecialties.length}</p>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Specialties
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">
+                {allspecialties.length}
+              </p>
             </div>
             <div className="text-green-500 text-4xl">💼</div>
           </div>
 
           <div className="bg-white p-6 rounded-lg shadow-lg flex items-center justify-between">
             <div>
-              <h3 className="text-xl font-semibold text-gray-800">Appointments</h3>
-              <p className="text-2xl font-bold text-gray-900">{allappointments.length}</p>
+              <h3 className="text-xl font-semibold text-gray-800">
+                Appointments
+              </h3>
+              <p className="text-2xl font-bold text-gray-900">
+                {allappointments.length}
+              </p>
             </div>
             <div className="text-yellow-500 text-4xl">📅</div>
           </div>
@@ -112,15 +149,21 @@ export default async function AdminDashboardPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-800">Doctors</h3>
-            <p className="text-2xl font-bold text-gray-900">{alldoctorProfiles.length}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {alldoctorProfiles.length}
+            </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-800">Time Slots</h3>
-            <p className="text-2xl font-bold text-gray-900">{alltimeAvailabilitySlots.length}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {alltimeAvailabilitySlots.length}
+            </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-800">Reviews</h3>
-            <p className="text-2xl font-bold text-gray-900">{allreviews.length}</p>
+            <p className="text-2xl font-bold text-gray-900">
+              {allreviews.length}
+            </p>
           </div>
         </div>
 
