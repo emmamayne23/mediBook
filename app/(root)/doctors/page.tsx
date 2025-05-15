@@ -83,7 +83,7 @@ export default async function DoctorsPage() {
 
                   {/* Doctor Info */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1 line-clamp-1">
                       Dr. {doctor.name}
                     </h3>
                     <p className="text-blue-600 dark:text-blue-400 font-medium mb-3">

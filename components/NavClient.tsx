@@ -112,7 +112,7 @@ export default function NavClient() {
                   {(user.name?.[0] ?? "").toUpperCase()}
                 </div>
               )}
-              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">
+              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block mt-2 transition-shadow lg:hidden lg:mt-3 lg:px-0">
                 Profile
               </p>
             </Link>
