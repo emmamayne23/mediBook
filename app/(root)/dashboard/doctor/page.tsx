@@ -7,7 +7,7 @@ import {
   appointments,
   specialties,
 } from "@/db/schema";
-import { eq, and, gte } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";

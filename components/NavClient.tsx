@@ -89,13 +89,15 @@ export default function NavClient() {
               onClick={() => signOut({ redirectTo: "/" })}
               className="cursor-pointer border-2 p-1 px-2.5 rounded-lg group relative"
             >
-              <FaSignOutAlt className="lg:hidden"/>
+              <FaSignOutAlt className="lg:hidden" />
               <span className="hidden lg:flex">Sign Out</span>
-              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">Sign Out</p>
+              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">
+                Sign Out
+              </p>
             </button>
             <Link
               href={`/user-profile/${user.id}`}
-              className="rounded-full flex justify-center items-center shadow-md"
+              className="rounded-full flex justify-center items-center shadow-md relative group"
             >
               {user.image ? (
                 <Image
@@ -110,13 +112,15 @@ export default function NavClient() {
                   {(user.name?.[0] ?? "").toUpperCase()}
                 </div>
               )}
+              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">
+                Profile
+              </p>
             </Link>
           </div>
         ) : (
           <Link href={"/sign-in"} className="group">
-            <FaSignInAlt className="lg:hidden"/>
+            <FaSignInAlt className="lg:hidden" />
             <span className="hidden lg:flex">Sign In</span>
-            
           </Link>
         )}
         <ModeToggle />
