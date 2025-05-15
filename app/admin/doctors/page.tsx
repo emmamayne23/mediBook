@@ -3,7 +3,7 @@ import { doctorProfiles, users, specialties } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUserMd, FaSearch, FaStar, FaRegCalendarAlt } from "react-icons/fa";
+import { FaUserMd, FaSearch, FaStar } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
 
 export default async function DoctorsPage() {
@@ -29,9 +29,6 @@ export default async function DoctorsPage() {
             <FaUserMd className="text-4xl" />
             Our Medical Specialists
           </h1>
-          <p className="text-xl max-w-2xl mx-auto opacity-90">
-            Connect with our team of experienced healthcare professionals
-          </p>
         </div>
       </div>
 
@@ -62,7 +59,7 @@ export default async function DoctorsPage() {
           </h2>
 
           {doctors.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
               {doctors.map((doctor) => (
                 <div 
                   key={doctor.id} 
@@ -83,7 +80,7 @@ export default async function DoctorsPage() {
 
                   {/* Doctor Info */}
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                    <h3 className="text-xl font-bold line-clamp-1 text-gray-800 dark:text-white mb-1">
                       Dr. {doctor.name}
                     </h3>
                     <p className="text-blue-600 dark:text-blue-400 font-medium mb-3">
@@ -107,13 +104,7 @@ export default async function DoctorsPage() {
                         href={`/doctor/${doctor.id}`}
                         className="flex-1 text-center bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition-colors duration-300"
                       >
-                        View Profile
-                      </Link>
-                      <Link
-                        href={`/appointments/book/${doctor.id}`}
-                        className="flex items-center justify-center gap-2 bg-white dark:bg-gray-700 border border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-gray-600 py-2 px-4 rounded-lg transition-colors duration-300"
-                      >
-                        <FaRegCalendarAlt />
+                        Profile
                       </Link>
                     </div>
                   </div>
