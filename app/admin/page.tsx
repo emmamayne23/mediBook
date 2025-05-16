@@ -1,3 +1,6 @@
+import { db } from "@/db/drizzle";
+import { users, doctorProfiles, specialties, appointments, reviews, timeAvailabilitySlots } from "@/db/schema";
+
 import {
   FiUsers,
   FiCalendar,
@@ -16,13 +19,21 @@ export default async function AdminDashboardPage() {
   if(!session || session.user?.role !== "admin") {
     redirect ("/not-found")
   }
+  
+  const allusers = await db.select().from(users)
+  const allspecialties = await db.select().from(specialties);
+  const allappointments = await db.select().from(appointments);
+  const allreviews = await db.select().from(reviews);
+  const alltimeSlots = await db.select().from(timeAvailabilitySlots);
+  const alldoctors = await db.select().from(doctorProfiles);
+
   const stats = {
-    users: 1243,
-    specialties: 28,
-    appointments: 342,
-    doctors: 56,
-    timeSlots: 789,
-    reviews: 231,
+    users: allusers.length,
+    specialties: allspecialties.length,
+    appointments: allappointments.length,
+    doctors: alldoctors.length,
+    timeSlots: alltimeSlots.length,
+    reviews: allreviews.length,
   };
 
   return (

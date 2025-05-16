@@ -85,7 +85,7 @@ export default function NavClient() {
       <div className="flex items-center gap-3">
         {user ? (
           <div className="flex items-center gap-3">
-            <button
+            {/* <button
               onClick={() => signOut({ redirectTo: "/" })}
               className="cursor-pointer border-2 p-1 px-2.5 rounded-lg group relative"
             >
@@ -94,7 +94,8 @@ export default function NavClient() {
               <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">
                 Sign Out
               </p>
-            </button>
+            </button> */}
+            <ModeToggle />
             <Link
               href={`/user-profile/${user.id}`}
               className="rounded-full flex justify-center items-center shadow-md relative group"
@@ -123,7 +124,7 @@ export default function NavClient() {
             <span className="hidden lg:flex">Sign In</span>
           </Link>
         )}
-        <ModeToggle />
+        
         <button onClick={() => setIsOpen(!isOpen)}>
           <MdOutlineMenu className="text-2xl cursor-pointer md:hidden" />
         </button>

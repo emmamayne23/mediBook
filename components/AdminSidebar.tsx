@@ -90,7 +90,7 @@ export default function AdminSidebar() {
               { href: "/admin/manage-users", icon: <FiUsers />, label: "Users" },
               { href: "/admin/appointments", icon: <FiCalendar />, label: "Appointments" },
               { href: "/admin/doctors", icon: <FiUserPlus />, label: "Doctors" },
-              { href: "/admin/time-slots", icon: <FiClock />, label: "Time Slots" },
+              { href: "/admin/time-slots/create", icon: <FiClock />, label: "Time Slots" },
               { href: "/admin/reviews", icon: <FiStar />, label: "Reviews" },
               { href: "/admin/settings", icon: <FiSettings />, label: "Settings" },
             ].map((item) => (

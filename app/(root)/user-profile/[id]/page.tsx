@@ -5,6 +5,8 @@ import Image from "next/image";
 import { FaUserCircle, FaCalendarAlt, FaClock, FaUserMd, FaInfoCircle } from "react-icons/fa";
 import Link from "next/link";
 
+import { SignOut } from "@/components/sign-out";
+
 interface UserProfilePageProps {
   id: string;
 }
@@ -39,7 +41,7 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Profile Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8 mb-8 md:flex md:justify-between">
           <div className="flex flex-col md:flex-row items-center gap-6">
             {user.profileImage ? (
               <Image
@@ -68,6 +70,9 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
                 </div>
               </div>
             </div>
+          </div>
+          <div className="text-center mt-3">
+            <SignOut />
           </div>
         </div>
 

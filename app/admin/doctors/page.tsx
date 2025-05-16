@@ -5,8 +5,14 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUserMd, FaSearch, FaStar } from "react-icons/fa";
 import { IoFilter } from "react-icons/io5";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
 export default async function DoctorsPage() {
+    const session = await auth()
+      if(!session || session.user?.role !== "admin") {
+        redirect ("/not-found")
+      }
   const doctors = await db
     .select({ 
       id: doctorProfiles.id, 

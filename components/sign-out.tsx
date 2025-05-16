@@ -1,8 +1,6 @@
-"use server"
-
 import { signOut } from "@/auth";
 
-export default async function SignOut() {
+export async function SignOut() {
   return (
     <form
       action={async () => {
@@ -12,7 +10,7 @@ export default async function SignOut() {
     >
       <button
         type="submit"
-        className="cursor-pointer border-2 px-3 py-1.5 rounded-lg"
+        className="cursor-pointer px-4 py-2 rounded-xl text-center duration-300 bg-red-600/60 hover:bg-red-600/40"
       >
         Signout
       </button>

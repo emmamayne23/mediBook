@@ -9,7 +9,7 @@
     "lint": "next lint",
     "drizzle:seed": "tsx scripts/seed.ts",
     "drizzle:studio": "drizzle-kit studio",
-    "drizzle:avail": "tsx scripts/avail.ts"
+    "drizzle:time-slot": "tsx scripts/time-slots.ts"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.0",
