@@ -4,6 +4,7 @@ import { eq } from "drizzle-orm";
 import Image from "next/image";
 import { FaUserCircle, FaCalendarAlt, FaClock, FaUserMd, FaInfoCircle } from "react-icons/fa";
 import Link from "next/link";
+import { auth } from "@/auth";
 
 import { SignOut } from "@/components/sign-out";
 
@@ -12,6 +13,7 @@ interface UserProfilePageProps {
 }
 
 export default async function UserProfilePage({ params }: { params: UserProfilePageProps }) {
+  const session = await auth();
   const { id } = await params;
 
   const user = await db
@@ -19,6 +21,12 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
     .from(users)
     .where(eq(users.id, id))
     .then((res) => res[0]);
+
+    const doctor = await db
+      .select()
+      .from(doctorProfiles)
+      .where(eq(doctorProfiles.userId, id))
+      .then((res) => res[0]); 
 
   const allAppointments = await db
     .select({
@@ -71,17 +79,27 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
               </div>
             </div>
           </div>
-          <div className="text-center mt-3">
+          <div className="text-center mt-3 space-y-5">
             <SignOut />
+            {session?.user?.role === "doctor" && (
+              <Link href={`/dashboard/doctor/${doctor.id}`} className="bg-blue-500 hover:bg-blue-600 text-white duration-300 font-bold py-3 px-5 rounded-xl mt-2">
+                Doctor Dashboard
+              </Link>
+            )}
+            {session?.user?.role === "admin" && (
+              <Link href={`/admin`} className="bg-blue-500 hover:bg-blue-600 text-white duration-300 font-bold py-3 px-5 rounded-xl mt-2">
+                Admin Dashboard
+              </Link>
+            )}
           </div>
         </div>
 
         {/* Appointments Section */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-8">
           <div className="flex flex-col gap-3 md:flex-row items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white text-center flex items-center gap-2">
               <FaCalendarAlt className="text-blue-500" />
-              Appointment History
+              Appointments History
             </h2>
             <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-sm">
               {allAppointments.length} {allAppointments.length === 1 ? 'appointment' : 'appointments'}

@@ -12,7 +12,7 @@ export async function SignOut() {
         type="submit"
         className="cursor-pointer px-4 py-2 rounded-xl text-center duration-300 bg-red-600/60 hover:bg-red-600/40"
       >
-        Signout
+        Sign Out
       </button>
     </form>
   );

@@ -77,9 +77,9 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
         {/* Doctor Info */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-md p-6 mb-8">
           <div className="flex flex-col md:flex-row gap-6 items-start">
-            {doctor.users.profileImage ? (
+            {doctor.doctor_profiles.imageUrl ? (
               <Image
-                src={doctor.users.profileImage}
+                src={doctor.doctor_profiles.imageUrl || ""}
                 width={120}
                 height={120}
                 alt={`Dr. ${doctor.users.name}`}
@@ -157,7 +157,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
                           <div className="flex items-center gap-2">
                             <FaClock className="text-blue-500" />
                             <span className="font-medium text-gray-800 dark:text-white">
-                              {slot.startTime} - {slot.endTime}
+                              {slot.startTime.slice(0, 5)} - {slot.endTime.slice(0, 5)}
                             </span>
                           </div>
                           <FaCheckCircle className="text-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

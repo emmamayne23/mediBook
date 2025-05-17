@@ -40,7 +40,7 @@ export default async function Home() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Link
-                href="/appointments"
+                href="/doctors"
                 className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300 text-center shadow-lg hover:shadow-blue-500/20"
               >
                 Book An Appointment

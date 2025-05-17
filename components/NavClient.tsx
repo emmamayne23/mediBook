@@ -3,9 +3,9 @@ import Image from "next/image";
 import logo from "@/public/logo.png";
 import Link from "next/link";
 import { ModeToggle } from "./toggle-mode";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { MdOutlineMenu } from "react-icons/md";
-import { FaSignOutAlt, FaSignInAlt } from "react-icons/fa";
+import { FaSignInAlt } from "react-icons/fa";
 
 import { useState } from "react";
 
@@ -109,8 +109,8 @@ export default function NavClient() {
                   className="rounded-full border"
                 />
               ) : (
-                <div className="font-semibold text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">
-                  {(user.name?.[0] ?? "").toUpperCase()}
+                <div className="font-semibold flex justify-center items-center text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">
+                  <p>{(user.name?.[0] ?? "").toUpperCase()}</p>
                 </div>
               )}
               <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block mt-2 transition-shadow lg:hidden lg:mt-3 lg:px-0">

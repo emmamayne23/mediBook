@@ -41,7 +41,7 @@ export default async function DoctorDetailsPage({ params }: ParamsProps) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-12">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         {/* Doctor Profile Card */}
         <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
           {/* Header Section */}
@@ -141,10 +141,10 @@ export default async function DoctorDetailsPage({ params }: ParamsProps) {
                     <span className="font-medium">Email:</span> {doctor.users.email}
                   </p>
                   <p>
-                    <span className="font-medium">Phone:</span> (555) 123-4567
+                    <span className="font-medium">Phone:</span> (555) 123-456 
                   </p>
                   <p>
-                    <span className="font-medium">Location:</span> 123 Medical Center Dr, Suite 456
+                    <span className="font-medium">Location:</span> 123 Medical Center Dr, Suite 45 
                   </p>
                 </div>
               </div>
@@ -153,15 +153,15 @@ export default async function DoctorDetailsPage({ params }: ParamsProps) {
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-white mb-3">Availability</h3>
                 <div className="space-y-2 text-gray-600 dark:text-gray-300">
                   <p className="flex justify-between">
-                    <span>Monday - Friday</span>
+                    <span>Mon - Fri</span>
                     <span className="font-medium">8:00 AM - 5:00 PM</span>
                   </p>
                   <p className="flex justify-between">
-                    <span>Saturday</span>
+                    <span>Sat</span>
                     <span className="font-medium">9:00 AM - 2:00 PM</span>
                   </p>
                   <p className="flex justify-between text-red-500">
-                    <span>Sunday</span>
+                    <span>Sun</span>
                     <span className="font-medium">Closed</span>
                   </p>
                 </div>
