@@ -7,6 +7,7 @@ import { eq } from "drizzle-orm";
 
 import { signIn } from "@/auth";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function handleSignUp(formData: FormData) {
   const name = formData.get("name") as string;
@@ -32,6 +33,7 @@ export async function handleSignUp(formData: FormData) {
   console.log("Authentication failed without redirect");
 
   revalidatePath("/");
+  redirect("/");
 }
 
  export async function handleSignin(formData: FormData) {
@@ -58,6 +60,7 @@ export async function handleSignUp(formData: FormData) {
       console.log("Authentication failed without redirect")
 
       revalidatePath("/");
+      redirect("/");
   }
 
 
@@ -86,6 +89,7 @@ export async function updateUserRole(formData: FormData) {
   await db.update(users).set({ role: newRole as "patient" | "doctor" | "admin" | "receptionist" }).where(eq(users.id, userId))
 
   revalidatePath("/admin/manage-users")
+  redirect("/admin/manage-users")
 }
 
 export async function updateDoctorProfile(formData: FormData) {
@@ -94,5 +98,10 @@ export async function updateDoctorProfile(formData: FormData) {
   const qualifications = formData.get("qualifications") as string
   const yearsExperience = Number(formData.get("yearsExperience"))
 
-  await db.update(doctorProfiles).set({ bio, qualifications, yearsExperience }).where(eq(doctorProfiles.userId, doctorId))
+  await db.update(doctorProfiles).set({ bio, qualifications, yearsExperience }).where(eq(doctorProfiles.id, doctorId))
+
+  // console.log("✅ Profile updated:", { bio, qualifications, yearsExperience });
+
+  revalidatePath(`/dashboard/doctor/${doctorId}`)
+  redirect(`/dashboard/doctor/${doctorId}`)
 }
