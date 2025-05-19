@@ -85,16 +85,6 @@ export default function NavClient() {
       <div className="flex items-center gap-3">
         {user ? (
           <div className="flex items-center gap-3">
-            {/* <button
-              onClick={() => signOut({ redirectTo: "/" })}
-              className="cursor-pointer border-2 p-1 px-2.5 rounded-lg group relative"
-            >
-              <FaSignOutAlt className="lg:hidden" />
-              <span className="hidden lg:flex">Sign Out</span>
-              <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block transition-shadow lg:hidden lg:group-hover:hidden">
-                Sign Out
-              </p>
-            </button> */}
             <ModeToggle />
             <Link
               href={`/user-profile/${user.id}`}
@@ -109,8 +99,8 @@ export default function NavClient() {
                   className="rounded-full border"
                 />
               ) : (
-                <div className="font-semibold flex justify-center items-center text-xl px-[8px] py-0.5 bg-blue-600 text-white rounded-full">
-                  <p>{(user.name?.[0] ?? "").toUpperCase()}</p>
+                <div className="flex items-center justify-center h-9 w-9 rounded-full bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-600 dark:text-blue-300 font-medium text-lg">
+                  <p>{user.name?.charAt(0) || "U"}</p>
                 </div>
               )}
               <p className="absolute -left-4 top-8 rounded-lg px-2 py-1 w-18 text-center text-xs text-white bg-gray-600 hidden group-hover:block mt-2 transition-shadow lg:hidden lg:mt-3 lg:px-0">

@@ -60,8 +60,8 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
                 className="rounded-full border-4 border-blue-100 dark:border-blue-900/50 object-cover"
               />
             ) : (
-              <div className="w-24 h-24 flex items-center justify-center bg-blue-600 text-white text-5xl font-bold rounded-full">
-                {(user.name?.[0] ?? "").toUpperCase()}
+              <div className="w-24 h-24 flex items-center justify-center bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-600 dark:text-blue-300 text-5xl font-bold rounded-full">
+                <p>{user.name?.charAt(0) || "U"}</p>
               </div>
             )}
             
