@@ -9,6 +9,7 @@ import {
 //   FaEdit,
   FaSignOutAlt 
 } from 'react-icons/fa';
+import { ModeToggle } from './toggle-mode';
 
 export default function DoctorSidebar() {
   return (
@@ -25,7 +26,7 @@ export default function DoctorSidebar() {
         <SidebarIcon 
           icon={<FaTachometerAlt className="text-xl" />} 
           tooltip="Dashboard" 
-          href={""}
+          href={"/dashboard/doctor"}
         />
         <SidebarIcon 
           icon={<FaHome className="text-xl" />} 
@@ -47,6 +48,7 @@ export default function DoctorSidebar() {
           tooltip="Slots" 
           href={"#slots"}
         />
+        <ModeToggle />
       </nav>
 
       {/* Logout Button */}

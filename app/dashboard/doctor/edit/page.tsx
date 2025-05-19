@@ -33,12 +33,6 @@ export default function DoctorProfileSection({
       </div>
       {!editing ? (
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 px-4 shadow-sm border border-gray-100 dark:border-gray-700">
-            {/* <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold text-gray-800 dark:text-white">
-                Profile Information
-              </h2>
-            </div> */}
-
             <div className="space-y-4">
               <div>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">

@@ -12,7 +12,7 @@ import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import DoctorProfileSection from "../edit/page";
+import DoctorProfileSection from "../doctor/edit/page";
 import {
   FaUserMd,
   FaCalendarAlt,
@@ -26,24 +26,24 @@ import {
   FaFileMedical,
 } from "react-icons/fa";
 
-type DoctorProps = {
-  id: string;
-};
-
-export default async function DoctorDashboardPage({
-  params,
-}: {
-  params: DoctorProps;
-}) {
-  const { id } = await params;
+export default async function DoctorDashboardPage() {
   const session = await auth();
   if (!session || session.user?.role !== "doctor") {
     redirect("/not-found");
   }
+
+  const doctorProfileResult = await db
+    .select({ id: doctorProfiles.id })
+    .from(doctorProfiles)
+    .where(eq(doctorProfiles.userId, session.user.id));
+
+  const doctorProfileId = doctorProfileResult[0].id;
+
+
   const doctorProfile = await db
     .select()
     .from(doctorProfiles)
-    .where(eq(doctorProfiles.id, id))
+    .where(eq(doctorProfiles.id, doctorProfileId))
     .then((res) => res[0]);
 
   if (!doctorProfile) {
@@ -60,7 +60,7 @@ export default async function DoctorDashboardPage({
     .select({ specialty: specialties.specialty })
     .from(doctorProfiles)
     .leftJoin(specialties, eq(doctorProfiles.specialtyId, specialties.id))
-    .where(eq(doctorProfiles.userId, id));
+    .where(eq(doctorProfiles.userId, doctorProfileId));
 
   // const [timeAvailability] = await db
   //   .select()
@@ -71,7 +71,7 @@ export default async function DoctorDashboardPage({
     .select()
     .from(reviews)
     .leftJoin(users, eq(reviews.patientId, users.id))
-    .where(eq(reviews.doctorId, id));
+    .where(eq(reviews.doctorId, doctorProfileId));
 
   const allappointments = await db
     .select({
@@ -89,12 +89,12 @@ export default async function DoctorDashboardPage({
       timeAvailabilitySlots,
       eq(appointments.slotId, timeAvailabilitySlots.id)
     )
-    .where(eq(appointments.doctorId, id));
+    .where(eq(appointments.doctorId, doctorProfileId));
 
   const reviewsWithRatings = await db
     .select({ rating: reviews.rating })
     .from(reviews)
-    .where(eq(reviews.doctorId, id));
+    .where(eq(reviews.doctorId, doctorProfileId));
 
   let averageRating = "N/A";
   if (reviewsWithRatings.length > 0) {
@@ -106,7 +106,7 @@ export default async function DoctorDashboardPage({
   }
 
   // console.log(comments);
-  console.log("doctor id: ",id);
+  console.log("doctor id: ", doctorProfileId);
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-4 md:p-8">
       <div className="max-w-7xl mx-auto space-y-6">

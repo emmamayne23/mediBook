@@ -4,7 +4,9 @@ export default function DashboardLayout({ children }:  Readonly<{children: React
     return (
         <div>
             <DoctorSidebar />
-            {children}
+            <div className="pl-16">
+                {children}
+            </div>
         </div>
     )
 }

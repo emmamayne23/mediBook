@@ -32,7 +32,7 @@ export async function handleSignUp(formData: FormData) {
   await signIn("credentials", { email, password, redirectTo: "/" });
   console.log("Authentication failed without redirect");
 
-  revalidatePath("/");
+  // revalidatePath("/");
   redirect("/");
 }
 
@@ -59,7 +59,7 @@ export async function handleSignUp(formData: FormData) {
       await signIn("credentials", { email, password, redirectTo: "/" })
       console.log("Authentication failed without redirect")
 
-      revalidatePath("/");
+      // revalidatePath("/");
       redirect("/");
   }
 

@@ -13,6 +13,8 @@ import {
 } from "react-icons/fi";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
+import { AdminPieChart } from "@/components/pie-chart";
+import { BarChartComponent } from "@/components/bar-chart";
 
 export default async function AdminDashboardPage() {
   const session = await auth()
@@ -117,27 +119,29 @@ export default async function AdminDashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-              Appointments Trend
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-3">
+              Appointments Trend <FiTrendingUp className="text-3xl" />
             </h3>
             <FiBarChart2 className="text-gray-500 dark:text-gray-400" />
           </div>
-          <div className="h-64 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400">
-            <FiTrendingUp className="text-4xl" />
-            <span className="ml-2">Chart will appear here</span>
+          <div className="h-64 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400 overflow-auto">
+            <span className="">
+              <BarChartComponent />
+            </span>
           </div>
         </div>
 
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-semibold text-gray-800 dark:text-white">
-              User Distribution
+            <h3 className="text-lg font-semibold text-gray-800 dark:text-white flex items-center gap-3">
+              User Distribution <FiPieChart className="text-3xl" />
             </h3>
             <FiPieChart className="text-gray-500 dark:text-gray-400" />
           </div>
           <div className="h-64 bg-gray-100 dark:bg-gray-700 rounded-lg flex items-center justify-center text-gray-400">
-            <FiPieChart className="text-4xl" />
-            <span className="ml-2">Chart will appear here</span>
+            <span className="-ml-10">
+              <AdminPieChart />
+            </span>
           </div>
         </div>
       </div>
