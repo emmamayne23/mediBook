@@ -10,7 +10,7 @@ export async function SignOut() {
     >
       <button
         type="submit"
-        className="cursor-pointer px-4 py-2 rounded-xl text-center duration-300 bg-red-600/60 hover:bg-red-600/40"
+        className="bg-gradient-to-br from-red-100 to-red-200 dark:from-red-900 dark:to-red-800 text-red-600 dark:text-red-300 dark:hover:from-red-800 dark:hover:to-red-900 duration-300 font-bold py-2 px-5 rounded-xl cursor-pointer"
       >
         Sign Out
       </button>

@@ -82,12 +82,12 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
           <div className="text-center mt-3 space-y-5">
             <SignOut />
             {session?.user?.role === "doctor" && (
-              <Link href={`/dashboard/doctor/`} className="bg-blue-500 hover:bg-blue-600 text-white duration-300 font-bold py-3 px-5 rounded-xl mt-2">
+              <Link href={`/dashboard/doctor/`} className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-600 dark:text-blue-300 dark:hover:from-blue-800 dark:hover:to-blue-900 duration-300 font-bold py-3 px-5 rounded-xl mt-2">
                 Doctor Dashboard
               </Link>
             )}
             {session?.user?.role === "admin" && (
-              <Link href={`/admin`} className="bg-blue-500 hover:bg-blue-600 text-white duration-300 font-bold py-3 px-5 rounded-xl mt-2">
+              <Link href={`/admin`} className="bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800 text-blue-600 dark:text-blue-300 dark:hover:from-blue-800 dark:hover:to-blue-900 duration-300 font-bold py-3 px-5 rounded-xl mt-2">
                 Admin Dashboard
               </Link>
             )}
