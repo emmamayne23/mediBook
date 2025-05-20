@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { db } from "@/db/drizzle";
 import { users } from "@/db/schema";
 import { updateUserRole } from "@/lib/actions";
+import { desc } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { FaUser, FaUserMd, FaUserShield, FaUserTie, FaSave } from "react-icons/fa";
 
@@ -10,7 +11,7 @@ export default async function ManageUsersPage() {
   if(!session || session.user?.role !== "admin") {
     redirect ("/not-found")
   }
-  const allUsers = await db.select().from(users);
+  const allUsers = await db.select().from(users).orderBy(desc(users.createdAt))
 
   const roleIcons = {
     patient: <FaUser className="text-blue-500" />,
