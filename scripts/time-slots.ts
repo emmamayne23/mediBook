@@ -1,16 +1,28 @@
 import "dotenv/config";
 import { db } from "@/db/drizzle";
 import { timeAvailabilitySlots, doctorProfiles } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
-import { addMinutes, format, setHours, setMinutes } from "date-fns";
+import { eq, and, sql } from "drizzle-orm";
+import { addMinutes, format, setHours, setMinutes, getDay } from "date-fns";
 
+// 🧹 Delete only slots that aren't linked to appointments
+async function clearExistingTimeSlots() {
+  await db.execute(sql`
+    DELETE FROM ${timeAvailabilitySlots}
+    WHERE id NOT IN (
+      SELECT slot_id FROM appointments WHERE slot_id IS NOT NULL
+    )
+  `);
+
+  console.log("✅ Cleared unbooked time slots.");
+}
+
+// 🕐 Generate slots based on your rules
 async function seedTimeSlotsForAllDoctors(startDate: string, endDate: string) {
+  await clearExistingTimeSlots();
+
   const start = new Date(startDate);
   const end = new Date(endDate);
-
-  const slotStartHour = 9;
-  const slotEndHour = 17;
-  const slotInterval = 30; // minutes
+  const slotInterval = 30;
 
   const allDoctors = await db.select().from(doctorProfiles);
 
@@ -18,6 +30,21 @@ async function seedTimeSlotsForAllDoctors(startDate: string, endDate: string) {
     const current = new Date(start);
 
     while (current <= end) {
+      const day = getDay(current); 
+      let slotStartHour = 9;
+      let slotEndHour = 17;
+
+      if (day === 0) {
+        current.setDate(current.getDate() + 1);
+        continue; // Skip Sundays
+      }
+
+      if (day === 6) {
+        // Saturday: 10 AM to 2 PM
+        slotStartHour = 10;
+        slotEndHour = 14;
+      }
+
       const dateStr = format(current, "yyyy-MM-dd");
 
       for (let hour = slotStartHour; hour < slotEndHour; hour++) {
@@ -52,10 +79,10 @@ async function seedTimeSlotsForAllDoctors(startDate: string, endDate: string) {
       current.setDate(current.getDate() + 1);
     }
 
-    console.log(`Time slots seeded for doctorId: ${doctor.id}`);
+    console.log(`✅ Time slots seeded for doctorId: ${doctor.id}`);
   }
 
-  console.log(`All time slots seeded from ${startDate} to ${endDate}`);
+  console.log(`🎉 All time slots seeded from ${startDate} to ${endDate}`);
 }
 
 // CLI usage: tsx scripts/seedTimeSlots.ts <startDate> <endDate>
@@ -69,6 +96,11 @@ if (!startDate || !endDate) {
 seedTimeSlotsForAllDoctors(startDate, endDate)
   .then(() => process.exit(0))
   .catch(err => {
-    console.error("Error seeding time slots:", err);
+    console.error("🔥 Error seeding time slots:", err);
     process.exit(1);
   });
+
+
+// CLI usage: tsx scripts/seedTimeSlots.ts <startDate> <endDate>
+// npm run drizzle:time-slot 2025-05-21 2025-06-21
+

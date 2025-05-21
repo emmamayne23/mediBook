@@ -26,6 +26,9 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
       eq(timeAvailabilitySlots.isBooked, false)
     ));
 
+    const today = new Date().toISOString().split("T")[0]
+    const filteredSlots = slots.filter(slot => slot.date >= today)
+
   if (!doctor) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900">
@@ -117,7 +120,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
               Available Time Slots
             </h2>
             <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-sm">
-              {slots.length} {slots.length === 1 ? 'slot' : 'slots'} available
+              {filteredSlots.length} {filteredSlots.length === 1 ? 'slot' : 'slots'} available
             </span>
           </div>
 
@@ -146,7 +149,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
                     <FaCalendarAlt className="text-blue-500" />
                     {date}
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                     {dateSlots.map((slot) => (
                       <Link
                         key={slot.id}
@@ -162,9 +165,9 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
                           </div>
                           <FaCheckCircle className="text-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
-                        <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                        {/* <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
                           Duration: {calculateDuration(slot.startTime, slot.endTime)}
-                        </div>
+                        </div> */}
                       </Link>
                     ))}
                   </div>

@@ -154,14 +154,14 @@ export default async function DoctorDetailsPage({ params }: ParamsProps) {
                 <div className="space-y-2 text-gray-600 dark:text-gray-300">
                   <p className="flex justify-between">
                     <span>Mon - Fri</span>
-                    <span className="font-medium">8:00 AM - 5:00 PM</span>
+                    <span className="font-medium">9:00 AM - 5:00 PM</span>
                   </p>
                   <p className="flex justify-between">
-                    <span>Sat</span>
-                    <span className="font-medium">9:00 AM - 2:00 PM</span>
+                    <span>Saturday</span>
+                    <span className="font-medium">10:00 AM - 3:00 PM</span>
                   </p>
                   <p className="flex justify-between text-red-500">
-                    <span>Sun</span>
+                    <span>Sunday</span>
                     <span className="font-medium">Closed</span>
                   </p>
                 </div>
