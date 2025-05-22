@@ -1,7 +1,7 @@
 "use server"
 
 import { db } from "@/db/drizzle";
-import { timeAvailabilitySlots, users, doctorProfiles } from "@/db/schema";
+import { timeAvailabilitySlots, users, doctorProfiles, appointments } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 
@@ -90,6 +90,20 @@ export async function updateUserRole(formData: FormData) {
 
   revalidatePath("/admin/manage-users")
   redirect("/admin/manage-users")
+}
+
+export async function updateAppointmentStatus(formData: FormData) {
+  const appointmentId = formData.get("appointmentId") as string;
+  const status = formData.get("status") as "completed" | "cancelled";
+
+  if (!appointmentId || !status) {
+    throw new Error("Missing data for update");
+  }
+
+  await db
+    .update(appointments)
+    .set({ status })
+    .where(eq(appointments.id, appointmentId));
 }
 
 export async function updateDoctorProfile(formData: FormData) {

@@ -10,7 +10,6 @@ import {
 } from "@/db/schema";
 import {
   FaClock,
-  FaEllipsisH,
   FaCalendarTimes,
   FaChevronRight,
   FaCalendarAlt,
@@ -18,6 +17,7 @@ import {
   FaUser,
   FaChevronLeft,
 } from "react-icons/fa";
+import { AppointmentActions } from "@/components/AppointmentActions";
 
 export default async function DoctorAppointmentsPage() {
   const session = await auth();
@@ -74,7 +74,8 @@ export default async function DoctorAppointmentsPage() {
           My Appointments
         </h1>
         <button className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg flex items-center gap-2 text-sm">
-          <FaPlus /> <span className="hidden sm:flex">New Appointment</span> <span className="flex sm:hidden">New</span>
+          <FaPlus /> <span className="hidden sm:flex">New Appointment</span>{" "}
+          <span className="flex sm:hidden">New</span>
         </button>
       </div>
 
@@ -165,8 +166,11 @@ export default async function DoctorAppointmentsPage() {
                   >
                     {appointment.status}
                   </span>
-                  <button className="p-2 text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <FaEllipsisH />
+                  <button className="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                    <AppointmentActions
+                      appointmentId={appointment.id}
+                      currentStatus={appointment.status || "confirmed"}
+                    />
                   </button>
                 </div>
               </div>
