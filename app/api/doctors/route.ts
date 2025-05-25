@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/drizzle";
-import { doctorProfiles, users } from "@/db/schema";
+import { doctorProfiles, users, specialties } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET() {
     try {
-        const allDoctors = await db.select({ id: doctorProfiles.id, name: users.name }).from(doctorProfiles).innerJoin(users, eq(users.id, doctorProfiles.userId))
+        const allDoctors = await db.select({ id: doctorProfiles.id, name: users.name, bio: doctorProfiles.bio, specialty: specialties.specialty, image: doctorProfiles.imageUrl, qualifications: doctorProfiles.qualifications, email: users.email, experience: doctorProfiles.yearsExperience }).from(doctorProfiles).innerJoin(users, eq(users.id, doctorProfiles.userId)).leftJoin(specialties, eq(specialties.id, doctorProfiles.specialtyId))
         return NextResponse.json(allDoctors)
     } catch (error) {
         console.error("Could not get doctor profiles", error)
