@@ -1,11 +1,25 @@
 import { NextResponse } from "next/server";
 import { db } from "@/db/drizzle";
-import { doctorProfiles } from "@/db/schema";
+import { doctorProfiles, users, specialties } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
     try {
-        const doctor = await db.select().from(doctorProfiles).where(eq(doctorProfiles.id, params.id))
+        const doctor = await db
+          .select({ 
+            id: doctorProfiles.id, 
+            name: users.name, 
+            bio: doctorProfiles.bio,  
+            qualifications: doctorProfiles.qualifications,
+            profileImage: doctorProfiles.imageUrl,
+            experience: doctorProfiles.yearsExperience,
+            specialty: specialties.specialty,
+            available: doctorProfiles.available
+          })
+          .from(doctorProfiles)
+          .where(eq(doctorProfiles.id, params.id))
+          .leftJoin(users, eq(doctorProfiles.userId, users.id))
+          .leftJoin(specialties, eq(specialties.id, doctorProfiles.specialtyId))
         return doctor[0] ? NextResponse.json(doctor[0]) : NextResponse.json({ error: "Doctor not found" }, { status: 404 })
     } catch (error) {
         console.error("Could not get doctor profile", error)
