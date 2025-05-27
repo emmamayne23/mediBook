@@ -35,7 +35,7 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
       endTime: timeAvailabilitySlots.endTime,
       doctorId: timeAvailabilitySlots.doctorId,
       doctorName: users.name,
-      doctorImage: users.profileImage,
+      doctorImage: doctorProfiles.imageUrl,
       doctorQualifications: doctorProfiles.qualifications,
       doctorSpecialty: doctorProfiles.specialtyId,
     })
