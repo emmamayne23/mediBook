@@ -22,18 +22,12 @@ export default async function UserProfilePage({ params }: { params: UserProfileP
     .where(eq(users.id, id))
     .then((res) => res[0]);
 
-    const doctor = await db
-      .select()
-      .from(doctorProfiles)
-      .where(eq(doctorProfiles.userId, id))
-      .then((res) => res[0]); 
-
   const allAppointments = await db
     .select({
       appointmentId: appointments.id,
       status: appointments.status,
       doctorName: users.name,
-      doctorProfileImage: users.profileImage,
+      doctorProfileImage: doctorProfiles.imageUrl,
       appointmentDate: timeAvailabilitySlots.date,
       appointmentTime: timeAvailabilitySlots.startTime,
       specialty: specialties.specialty
