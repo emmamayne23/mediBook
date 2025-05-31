@@ -119,7 +119,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
               <FaCalendarAlt className="text-blue-500" />
               Available Time Slots
             </h2>
-            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full text-sm">
+            <span className="bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-center px-3 py-1 rounded-full text-sm">
               {filteredSlots.length} {filteredSlots.length === 1 ? 'slot' : 'slots'} available
             </span>
           </div>
@@ -149,7 +149,7 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
                     <FaCalendarAlt className="text-blue-500" />
                     {date}
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
                     {dateSlots.map((slot) => (
                       <Link
                         key={slot.id}
@@ -160,14 +160,11 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
                           <div className="flex items-center gap-2">
                             <FaClock className="text-blue-500" />
                             <span className="font-medium text-gray-800 dark:text-white">
-                              {slot.startTime.slice(0, 5)} - {slot.endTime.slice(0, 5)}
+                              {slot.startTime.slice(0, 5)}
                             </span>
                           </div>
                           <FaCheckCircle className="text-green-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                         </div>
-                        {/* <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-                          Duration: {calculateDuration(slot.startTime, slot.endTime)}
-                        </div> */}
                       </Link>
                     ))}
                   </div>
@@ -179,18 +176,4 @@ export default async function BookAppointmentPage({ params }: ParamsProps) {
       </div>
     </div>
   );
-}
-
-// Helper function to calculate duration
-function calculateDuration(startTime: string, endTime: string): string {
-  const [startHour, startMinute] = startTime.split(':').map(Number);
-  const [endHour, endMinute] = endTime.split(':').map(Number);
-  
-  const totalMinutes = (endHour * 60 + endMinute) - (startHour * 60 + startMinute);
-  const hours = Math.floor(totalMinutes / 60);
-  const minutes = totalMinutes % 60;
-  
-  return hours > 0 
-    ? `${hours} hour${hours > 1 ? 's' : ''} ${minutes > 0 ? `${minutes} minutes` : ''}`.trim()
-    : `${minutes} minutes`;
 }

@@ -23,9 +23,9 @@ export async function AdminPieChart() {
       series={[
         {
           data: data,
-          innerRadius: 20,
+          innerRadius: 13,
           outerRadius: 100,
-          paddingAngle: 5,
+          paddingAngle: 3,
           cornerRadius: 5,
           startAngle: 0,
           endAngle: 360,

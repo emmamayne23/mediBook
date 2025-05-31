@@ -55,6 +55,7 @@ export default async function DoctorAppointmentsPage() {
       appointmentDate: timeAvailabilitySlots.date,
       appointmentTime: timeAvailabilitySlots.startTime,
       appointmentEndTime: timeAvailabilitySlots.endTime,
+      reason: appointments.reason
     })
     .from(appointments)
     .leftJoin(doctorProfiles, eq(appointments.doctorId, doctorProfiles.id))
@@ -147,7 +148,7 @@ export default async function DoctorAppointmentsPage() {
                     </div>
                     {appointment.reason && (
                       <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <span className="font-medium">Reason:</span>{" "}
+                        <span className="font-medium text-blue-500">Reason:</span>{" "}
                         {appointment.reason}
                       </p>
                     )}

@@ -49,6 +49,7 @@ export const appointments = pgTable("appointments", {
     patientId: uuid("patient_id").notNull().references(() => users.id),
     doctorId: uuid("doctor_id").notNull().references(() => doctorProfiles.id),
     slotId: uuid("slot_id").notNull().references(() => timeAvailabilitySlots.id),
+    reason: text("reason"),
     status: varchar("status", {
         enum: ["confirmed", "cancelled", "completed"]
     }).default("confirmed"),

@@ -65,8 +65,10 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
     );
   }
 
-  async function handleConfirm() {
+  async function handleConfirm(formData: FormData) {
     "use server";
+
+    const reason = formData.get("reason") as string
 
     if (!userId) {
       throw new Error("User ID is required");
@@ -76,6 +78,7 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
       patientId: userId,
       doctorId: slot.doctorId,
       slotId: slot.id,
+      reason: reason,
       status: 'confirmed'
     });
 
@@ -153,7 +156,7 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
               <div>
                 <p className="text-sm text-gray-500 dark:text-gray-400">Time</p>
                 <p className="font-medium">
-                  {slot.startTime} - {slot.endTime} ({calculateDuration(slot.startTime, slot.endTime)})
+                  {slot.startTime.slice(0, 5)} - {slot.endTime.slice(0, 5)} ({calculateDuration(slot.startTime, slot.endTime)})
                 </p>
               </div>
             </div>
@@ -161,6 +164,13 @@ export default async function ConfirmAppointmentPage({ params }: PageProps) {
 
           {/* Confirmation Button */}
           <form action={handleConfirm} className="p-6 pt-0">
+            <div>
+              <input type="text"
+                placeholder="add a reason?(optional)"
+                className="border w-full mb-2 gap-2 py-3 px-4 rounded-lg focus:ring-2 focus:outline-none focus:ring-blue-600 focus:ring-offset-2"
+                name="reason"
+              />
+            </div>
             <button
               type="submit"
               className="w-full flex items-center justify-center gap-2 bg-green-600 hover:bg-green-700 text-white py-3 px-4 rounded-lg transition-colors duration-300"

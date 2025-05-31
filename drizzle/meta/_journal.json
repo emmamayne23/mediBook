@@ -15,6 +15,13 @@
       "when": 1747158110455,
       "tag": "0001_complete_microchip",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1748699930404,
+      "tag": "0002_silly_the_twelve",
+      "breakpoints": true
     }
   ]
 }
