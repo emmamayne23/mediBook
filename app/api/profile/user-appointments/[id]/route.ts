@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { users, doctorProfiles, specialties, timeAvailabilitySlots, appointments } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
@@ -21,6 +21,7 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
           .leftJoin(specialties, eq(doctorProfiles.specialtyId, specialties.id))
           .leftJoin(timeAvailabilitySlots, eq(timeAvailabilitySlots.id, appointments.slotId))
           .where(eq(appointments.patientId, params.id))
+          .orderBy(desc(appointments.createdAt))
 
         return NextResponse.json(userappointments)
     } catch (error) {
