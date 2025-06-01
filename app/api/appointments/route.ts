@@ -1,10 +1,11 @@
 import { db } from '@/db/drizzle';
 import { appointments } from '@/db/schema';
+import { desc } from 'drizzle-orm';
 import { NextResponse } from 'next/server';
 
 export async function GET() {
     try {
-        const allAppointments = await db.select().from(appointments)
+        const allAppointments = await db.select().from(appointments).orderBy(desc(appointments.createdAt))
         return NextResponse.json(allAppointments);
     } catch (error) {
         console.error('Error fetching appointments:', error);
